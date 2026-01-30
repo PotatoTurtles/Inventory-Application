@@ -6,6 +6,47 @@
     <title>Home</title>
 </head>
 <body>
-    Hello World!
+    <h1>Inventory Application</h1>
+    <a href="/new">Add Item</a>
+    <a href="/Update">Update Items</a>
+    <a href="/delete">Delete All Items</a>
+    <form action="/" method="get">
+        <h2>Filter By:</h2>
+        <label for="category">Item's Category:</label>
+        <input type="text" id="category" name="categ" placeholder="Food Items">
+
+        <label for="name">Item's Name:</label>
+        <input type="text" id="name" name="name" placeholder="Spinach">
+
+        <label for="price">Item's Price:</label>
+        <input type="number" id="price" name="price" placeholder="7.99">
+
+        <label for="id">Item's Id #:</label>
+        <input type="number" name="id" id="id" placeholder="123">
+
+        <button>Find Item(s)</button>
+    </form>
+    <% if(render){ %>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Current Stock</th>
+                <th># Sold</th>
+            </tr>
+            <% for(let i = 0; i<rows.length;i++){ %>
+                <tr>
+                    <td><%=rows[i].id%></td>
+                    <td><%=rows[i].item_name%></td>
+                    <td><%=rows[i].category%></td>
+                    <td><%=rows[i].price%></td>
+                    <td><%=rows[i].total%></td>
+                    <td><%=rows[i].sold%></td>
+                </tr>
+            <%}%>
+        </table>
+    <%}%>
 </body>
 </html>
