@@ -42,11 +42,8 @@ const addItem = async function (client,body) {
 async function main() {
   console.log("seeding...");
   const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production"
-    ? { rejectUnauthorized: false }
-    : false
-});
+    connectionString: process.env.DATABASE_URL,
+  });
   let pop = [{name:"Mango",categ:"Fruit",price:2.39,total:65,sold:15},
     {name:"Ham",categ:"Meat",price:49.99,total:30,sold:8},
     {name:"Soda",categ:"Beverage",price:0.75,total:120,sold:40}
