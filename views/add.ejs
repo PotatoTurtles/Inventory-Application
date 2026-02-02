@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+</head>
+<body>
+    <h1>Add a New Item</h1>
+    <a href="/">Home</a>
+    <a href="/update">Update Items</a>
+    <a href="/delete">Delete All Items</a>
+    <form action="/new" method="post">
+        <label for="name">Item's Name:</label>
+        <input type="text" id="name" name="name" placeholder="Spinach" required>
+
+        <label for="category">Item's Category:</label>
+        <select name="categ" id="category" required>
+            <% cats.forEach(e=>{ %>
+                <option value="<%= e.category %>"><%=e.category%></option>
+            <%}) %>
+            <option value="custom">Custom Value</option>
+        </select>
+        <input type="text" name="newCat" placeholder="Custom Category...">
+
+        <label for="price">Item's Price:</label>
+        <input type="number" step="0.01" min="0" id="price" name="price" placeholder="7.99" required>
+
+        <label for="total">Total Items:</label>
+        <input type="number" id="total" name="total" placeholder="65">
+
+        <label for="sold">Total Items Sold:</label>
+        <input type="number" id="sold" name="sold" placeholder="65">
+
+        <button>Add Item</button>
+    </form>
+</body>
+</html>

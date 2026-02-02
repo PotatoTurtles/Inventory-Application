@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Items</title>
+</head>
+<body>
+    <h1>Delete Items</h1>
+    <a href="/">Home</a>
+    <a href="/new">Add Item</a>
+    <a href="/update">Update Items</a>
+    <form action="/delete" method="post">
+        <section>
+            <h2>Select Items to Change</h2>
+
+            <label for="id">Item's Id #:</label>
+            <input type="number" name="id" id="id" placeholder="123" value="<%-vals.id||''%>">
+
+            <label for="name">Item's Name:</label>
+            <input type="text" id="name" name="name" placeholder="Spinach" value="<%-vals.name||''%>">
+
+            <label for="category">Item's Category:</label>
+            <select name="categ" id="category">
+                <option value="" <%=vals.categ?"":"selected"%>>None</option>
+                <% cats.forEach(e=>{ %>
+                    <option value="<%= e.category %>" <%=vals.categ === e.category?"selected":""%> ><%=e.category%></option>
+                <%}) %>
+            </select>
+
+            <label for="price">Item's Price:</label>
+            <input type="number" step="0.01" min="0" id="price" name="price" placeholder="7.99" value="<%-vals.price||''%>">
+
+            <label for="total">Total Items:</label>
+            <input type="number" id="total" name="total" placeholder="65" value="<%-vals.total||''%>">
+
+            <label for="sold">Total Items Sold:</label>
+            <input type="number" id="sold" name="sold" placeholder="65" value="<%-vals.sold||''%>">
+
+            <% if(!rows?.length){%>
+                <button>Check Selected Rows</button>
+            <%} else{%>
+                <button>Delete Rows</button>
+            <%}%>
+        </section>
+
+        <% if(rows?.length){ %>
+            <input type="hidden" name="isEdit" value="true">
+
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Item Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Current Stock</th>
+                    <th># Sold</th>
+                </tr>
+                <% for(let i = 0; i<rows.length;i++){ %>
+                    <tr>
+                        <td><%=rows[i].id%></td>
+                        <td><%=rows[i].item_name%></td>
+                        <td><%=rows[i].category%></td>
+                        <td><%=rows[i].price%></td>
+                        <td><%=rows[i].total%></td>
+                        <td><%=rows[i].sold%></td>
+                    </tr>
+                <%}%>
+            </table>
+        <%}%>
+    </form>
+</body>
+</html>

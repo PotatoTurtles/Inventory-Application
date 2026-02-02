@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Items</title>
+</head>
+<body>
+    <h1>Update Items</h1>
+    <a href="/">Home</a>
+    <a href="/new">Add Item</a>
+    <a href="/delete">Delete All Items</a>
+    <form action="/update" method="post">
+        <section>
+            <h2>Select Items to Change</h2>
+
+            <label for="id">Item's Id #:</label>
+            <input type="number" name="id" id="id" placeholder="123" value="<%-vals.id||''%>">
+
+            <label for="name">Item's Name:</label>
+            <input type="text" id="name" name="name" placeholder="Spinach" value="<%-vals.name||''%>">
+
+            <label for="category">Item's Category:</label>
+            <select name="categ" id="category">
+                <option value="" <%=vals.categ?"":"selected"%>>None</option>
+                <% cats.forEach(e=>{ %>
+                    <option value="<%= e.category %>" <%=vals.categ === e.category?"selected":""%> ><%=e.category%></option>
+                <%}) %>
+            </select>
+
+            <label for="price">Item's Price:</label>
+            <input type="number" step="0.01" min="0" id="price" name="price" placeholder="7.99" value="<%-vals.price||''%>">
+
+            <label for="total">Total Items:</label>
+            <input type="number" id="total" name="total" placeholder="65" value="<%-vals.total||''%>">
+
+            <label for="sold">Total Items Sold:</label>
+            <input type="number" id="sold" name="sold" placeholder="65" value="<%-vals.sold||''%>">
+
+            <% if(!rows?.length){%>
+                <button>Check Selected Rows</button>
+            <%} else{%>
+                <a href="/update"><button type="button">Reset</button></a>
+            <%}%>
+        </section>
+
+        <% if(rows?.length){ %>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Item Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Current Stock</th>
+                    <th># Sold</th>
+                </tr>
+                <% for(let i = 0; i<rows.length;i++){ %>
+                    <tr>
+                        <td><%=rows[i].id%></td>
+                        <td><%=rows[i].item_name%></td>
+                        <td><%=rows[i].category%></td>
+                        <td><%=rows[i].price%></td>
+                        <td><%=rows[i].total%></td>
+                        <td><%=rows[i].sold%></td>
+                    </tr>
+                <%}%>
+            </table>
+
+
+            <section>
+                <h2>Change Values to:</h2>
+                <p>Submitted blank values won't alter current values.</p>
+                <input type="hidden" name="isEdit" value="true">
+
+                <label for="newname">Item's Name:</label>
+                <input type="text" id="newname" name="newName" placeholder="Spinach">
+
+                <label for="newcategory">Item's Category:</label>
+                <input type="text" id="newcategory" name="newCateg" placeholder="Category...">
+
+                <label for="newprice">Item's Price:</label>
+                <input type="number" step="0.01" min="0" id="newprice" name="newPrice" placeholder="7.99">
+
+                <label for="newtotal">Total Items:</label>
+                <input type="number" id="newtotal" name="newTotal" placeholder="65">
+
+                <label for="newsold">Total Items Sold:</label>
+                <input type="number" id="newsold" name="newSold" placeholder="65">
+
+                <label for="conf">I understand that, if submitted, this action will apply permanent changes to the database:</label>
+                <input type="checkbox" id="conf" required>
+
+                <button>Edit Item</button>
+            </section>
+        <%}%>
+    </form>
+</body>
+</html>
